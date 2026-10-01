@@ -2694,3 +2694,3174 @@ categoryCards.forEach(category=>{
 
 });
 </script>
+<!-- ================= PART 5 : STORY + BENEFITS ================= -->
+
+<style>
+/* STORY */
+.story-section{
+  padding-top:20px;
+}
+
+.story-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:20px;
+  align-items:stretch;
+}
+
+.story-main{
+  min-height:560px;
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  padding:48px;
+  background:
+    radial-gradient(circle at 80% 15%,rgba(255,215,107,.75),transparent 25%),
+    radial-gradient(circle at 20% 90%,rgba(166,220,105,.65),transparent 35%),
+    linear-gradient(140deg,#eef2d8,#d8e9b6);
+}
+
+.story-main:before{
+  content:"";
+  position:absolute;
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  background:rgba(255,255,255,.3);
+  right:-90px;
+  bottom:-100px;
+}
+
+.story-kicker{
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  opacity:.55;
+  position:relative;
+  z-index:2;
+}
+
+.story-main h2{
+  position:relative;
+  z-index:2;
+  font-family:Manrope;
+  font-size:clamp(40px,5vw,67px);
+  line-height:.95;
+  letter-spacing:-3.5px;
+  max-width:560px;
+  margin-top:18px;
+}
+
+.story-main h2 span{
+  color:#6f9e38;
+}
+
+.story-main p{
+  position:relative;
+  z-index:2;
+  max-width:470px;
+  color:#65705e;
+  font-size:14px;
+  line-height:1.8;
+  margin-top:22px;
+}
+
+.story-link{
+  position:relative;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:27px;
+  padding:13px 17px;
+  border-radius:50px;
+  background:rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,.9);
+  font-size:12px;
+  font-weight:700;
+}
+
+.story-link svg{
+  width:14px;
+}
+
+.story-product{
+  position:absolute;
+  right:65px;
+  bottom:35px;
+  width:115px;
+  height:200px;
+  border-radius:23px 23px 30px 30px;
+  background:linear-gradient(125deg,#fff,#e8ebdc);
+  box-shadow:0 30px 55px rgba(44,60,30,.16);
+  transform:rotate(8deg);
+  z-index:3;
+}
+
+.story-product:before{
+  content:"";
+  position:absolute;
+  width:45px;
+  height:24px;
+  top:-18px;
+  left:35px;
+  border-radius:7px 7px 3px 3px;
+  background:#3c4b35;
+}
+
+.story-product-label{
+  position:absolute;
+  left:10px;
+  right:10px;
+  top:55px;
+  height:85px;
+  border-radius:15px;
+  background:#f7efd4;
+  display:grid;
+  place-items:center;
+  text-align:center;
+}
+
+.story-product-label strong{
+  font-family:Manrope;
+  font-size:13px;
+  line-height:1;
+}
+
+.story-product-label small{
+  display:block;
+  margin-top:6px;
+  font-size:6px;
+  letter-spacing:1px;
+  color:#777d6c;
+}
+
+.story-side{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:20px;
+}
+
+.story-card{
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:34px;
+  padding:32px;
+  position:relative;
+  overflow:hidden;
+}
+
+.story-card h3{
+  font-family:Manrope;
+  font-size:25px;
+  letter-spacing:-1.2px;
+  max-width:260px;
+  line-height:1.05;
+}
+
+.story-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  max-width:300px;
+  margin-top:13px;
+}
+
+.story-number{
+  position:absolute;
+  right:25px;
+  top:22px;
+  font-family:Manrope;
+  font-size:12px;
+  font-weight:800;
+  opacity:.3;
+}
+
+.story-orb{
+  position:absolute;
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  right:-35px;
+  bottom:-35px;
+  background:linear-gradient(145deg,#dff2b2,#a9d96a);
+}
+
+.story-orb.orange{
+  background:linear-gradient(145deg,#ffe3ae,#ffad5e);
+}
+
+.story-orb:after{
+  content:"";
+  position:absolute;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  left:25px;
+  top:25px;
+  background:rgba(255,255,255,.35);
+}
+
+
+/* BENEFITS */
+.benefit-section{
+  padding-top:35px;
+}
+
+.benefit-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.benefit{
+  padding:28px 24px;
+  min-height:175px;
+  border-right:1px solid var(--line);
+  position:relative;
+}
+
+.benefit:last-child{
+  border-right:0;
+}
+
+.benefit-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#edf4df;
+  display:grid;
+  place-items:center;
+  margin-bottom:20px;
+}
+
+.benefit:nth-child(2) .benefit-icon{
+  background:#fff0d0;
+}
+
+.benefit:nth-child(3) .benefit-icon{
+  background:#ffe2d1;
+}
+
+.benefit:nth-child(4) .benefit-icon{
+  background:#e1eee4;
+}
+
+.benefit-icon svg{
+  width:19px;
+  height:19px;
+}
+
+.benefit h3{
+  font-family:Manrope;
+  font-size:15px;
+  letter-spacing:-.4px;
+}
+
+.benefit p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+  margin-top:7px;
+  max-width:190px;
+}
+
+
+/* MARQUEE */
+.marquee-wrap{
+  overflow:hidden;
+  padding:25px 0 5px;
+}
+
+.marquee{
+  display:flex;
+  width:max-content;
+  animation:marqueeMove 24s linear infinite;
+}
+
+.marquee-item{
+  display:flex;
+  align-items:center;
+  gap:17px;
+  margin-right:35px;
+  font-family:Manrope;
+  font-size:20px;
+  letter-spacing:-.7px;
+  color:#66705f;
+}
+
+.marquee-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#9dcb59;
+}
+
+@keyframes marqueeMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+.story-grid{
+  grid-template-columns:1fr;
+}
+
+.story-main{
+  min-height:500px;
+}
+
+.story-side{
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:none;
+}
+
+.benefit-grid{
+  grid-template-columns:repeat(2,1fr);
+}
+
+.benefit:nth-child(2){
+  border-right:0;
+}
+
+.benefit:nth-child(-n+2){
+  border-bottom:1px solid var(--line);
+}
+
+}
+
+@media(max-width:600px){
+
+.story-main{
+  min-height:530px;
+  padding:30px 24px;
+  border-radius:27px;
+}
+
+.story-main h2{
+  font-size:43px;
+  letter-spacing:-2.5px;
+}
+
+.story-main p{
+  font-size:13px;
+}
+
+.story-product{
+  right:45px;
+  bottom:30px;
+  transform:scale(.8) rotate(8deg);
+}
+
+.story-side{
+  grid-template-columns:1fr;
+  gap:12px;
+}
+
+.story-card{
+  min-height:190px;
+  border-radius:27px;
+  padding:26px;
+}
+
+.benefit-grid{
+  grid-template-columns:1fr;
+}
+
+.benefit{
+  border-right:0;
+  border-bottom:1px solid var(--line);
+}
+
+.benefit:last-child{
+  border-bottom:0;
+}
+
+}
+</style>
+
+
+<!-- ================= OUR STORY ================= -->
+
+<section class="section story-section" id="story">
+
+<div class="container">
+
+<div class="story-grid">
+
+<div class="story-main">
+
+<div class="story-kicker">
+The Kishor Nayak story
+</div>
+
+<h2>
+Goodness that feels
+<span>naturally right.</span>
+</h2>
+
+<p>
+Kishor Nayak is built around a simple idea —
+bring refreshing, thoughtfully crafted products
+into everyday life without making things complicated.
+</p>
+
+<a href="#contact" class="story-link">
+Discover our story
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M5 12h14M13 6l6 6-6 6"/>
+</svg>
+
+</a>
+
+
+<div class="story-product">
+
+<div class="story-product-label">
+<div>
+<strong>KISHOR<br>NAYAK</strong>
+<small>MADE WITH CARE</small>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="story-side">
+
+<div class="story-card">
+
+<span class="story-number">01</span>
+
+<h3>
+Simple ingredients.
+Thoughtful choices.
+</h3>
+
+<p>
+We focus on creating products that
+fit naturally into your everyday routine.
+</p>
+
+<div class="story-orb"></div>
+
+</div>
+
+
+<div class="story-card">
+
+<span class="story-number">02</span>
+
+<h3>
+Made for everyday
+moments.
+</h3>
+
+<p>
+From your morning start to your evening
+refreshment, there is always a good time
+for something fresh.
+</p>
+
+<div class="story-orb orange"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BENEFITS ================= -->
+
+<section class="section benefit-section">
+
+<div class="container">
+
+<div class="section-head">
+
+<div>
+<div class="eyebrow">
+<span class="dot"></span>
+Why Kishor Nayak
+</div>
+
+<h2>
+Good things,<br>
+kept simple.
+</h2>
+</div>
+
+<p>
+Thoughtful products, easy ordering and
+a brand experience designed around you.
+</p>
+
+</div>
+
+
+<div class="benefit-grid">
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7">
+<path d="M12 3c4 4 6 7 6 11a6 6 0 0 1-12 0c0-4 2-7 6-11Z"/>
+<path d="M9 15c.5 1.2 1.5 1.8 3 1.8"/>
+</svg>
+
+</div>
+
+<h3>Fresh by feel</h3>
+
+<p>
+Products designed around freshness,
+taste and everyday enjoyment.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7">
+<path d="M12 3 19 6v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z"/>
+<path d="m9 12 2 2 4-4"/>
+</svg>
+
+</div>
+
+<h3>Quality first</h3>
+
+<p>
+A thoughtful approach to every product
+and every customer experience.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7">
+<path d="M4 7h16M6 4h12v17H6z"/>
+<path d="M9 11h6M9 15h4"/>
+</svg>
+
+</div>
+
+<h3>Easy ordering</h3>
+
+<p>
+Browse, choose your favourites and
+place your order without the hassle.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="1.7">
+<circle cx="12" cy="12" r="8"/>
+<path d="M12 7v5l3 2"/>
+</svg>
+
+</div>
+
+<h3>Made for daily life</h3>
+
+<p>
+Simple products that fit comfortably
+into your everyday routine.
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="marquee-wrap">
+
+<div class="marquee">
+
+<div class="marquee-item">
+Freshness first
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Thoughtfully made
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Everyday goodness
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Made with care
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Freshness first
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Thoughtfully made
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Everyday goodness
+<span class="marquee-dot"></span>
+</div>
+
+<div class="marquee-item">
+Made with care
+<span class="marquee-dot"></span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ================= PART 6 : REVIEWS + FAQ ================= -->
+
+<style>
+/* REVIEWS */
+.reviews-section{
+  background:#eef2df;
+  border-radius:38px;
+  padding:65px 0;
+  overflow:hidden;
+}
+
+.review-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:25px;
+  margin-bottom:30px;
+}
+
+.review-head h2{
+  font-family:Manrope;
+  font-size:clamp(38px,5vw,62px);
+  line-height:.95;
+  letter-spacing:-3px;
+}
+
+.review-head p{
+  max-width:350px;
+  color:#68715f;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.review-scroll{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  scroll-snap-type:x mandatory;
+  padding:5px 2px 15px;
+}
+
+.review-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.review-card{
+  min-width:340px;
+  max-width:340px;
+  min-height:270px;
+  background:#fffdf8;
+  border:1px solid rgba(220,224,207,.9);
+  border-radius:27px;
+  padding:27px;
+  scroll-snap-align:start;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.3s;
+}
+
+.review-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 18px 40px rgba(40,55,30,.09);
+}
+
+.review-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.review-stars{
+  color:#dda12a;
+  letter-spacing:2px;
+  font-size:12px;
+}
+
+.review-quote{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#edf4dc;
+  display:grid;
+  place-items:center;
+  font-family:Georgia,serif;
+  font-size:21px;
+  color:#70983b;
+}
+
+.review-text{
+  font-family:Manrope;
+  font-size:17px;
+  line-height:1.35;
+  letter-spacing:-.5px;
+  margin:20px 0;
+}
+
+.review-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.review-avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#d7e9a8,#9ec95c);
+  display:grid;
+  place-items:center;
+  font-family:Manrope;
+  font-size:12px;
+  font-weight:800;
+}
+
+.review-user strong{
+  display:block;
+  font-family:Manrope;
+  font-size:12px;
+}
+
+.review-user span{
+  display:block;
+  color:#92978d;
+  font-size:10px;
+  margin-top:3px;
+}
+
+
+/* FAQ */
+.faq-section{
+  padding-bottom:75px;
+}
+
+.faq-grid{
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  gap:55px;
+  align-items:start;
+}
+
+.faq-intro h2{
+  font-family:Manrope;
+  font-size:clamp(40px,5vw,60px);
+  line-height:.95;
+  letter-spacing:-3px;
+}
+
+.faq-intro p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  max-width:310px;
+  margin-top:18px;
+}
+
+.faq-list{
+  border-top:1px solid var(--line);
+}
+
+.faq-item{
+  border-bottom:1px solid var(--line);
+}
+
+.faq-question{
+  width:100%;
+  border:0;
+  background:transparent;
+  padding:21px 3px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  text-align:left;
+  color:var(--ink);
+}
+
+.faq-question span{
+  font-family:Manrope;
+  font-size:14px;
+  font-weight:700;
+}
+
+.faq-plus{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:#fff;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  transition:.3s;
+}
+
+.faq-plus svg{
+  width:13px;
+  transition:.3s;
+}
+
+.faq-answer{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:.35s;
+}
+
+.faq-answer-inner{
+  overflow:hidden;
+}
+
+.faq-answer p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.75;
+  padding:0 42px 20px 3px;
+}
+
+.faq-item.open .faq-answer{
+  grid-template-rows:1fr;
+}
+
+.faq-item.open .faq-plus{
+  background:var(--ink);
+  color:#fff;
+  transform:rotate(45deg);
+}
+
+
+/* RESPONSIVE */
+@media(max-width:850px){
+
+.faq-grid{
+  grid-template-columns:1fr;
+  gap:35px;
+}
+
+.faq-intro p{
+  max-width:500px;
+}
+
+}
+
+@media(max-width:600px){
+
+.reviews-section{
+  border-radius:28px;
+  padding:48px 0;
+}
+
+.review-head{
+  display:block;
+}
+
+.review-head p{
+  margin-top:15px;
+}
+
+.review-card{
+  min-width:295px;
+  max-width:295px;
+  min-height:255px;
+  padding:23px;
+}
+
+.review-text{
+  font-size:15px;
+}
+
+.faq-section{
+  padding-top:60px;
+}
+
+.faq-intro h2{
+  font-size:43px;
+}
+
+}
+</style>
+
+
+<!-- ================= REVIEWS ================= -->
+
+<section class="section" id="reviews">
+
+<div class="container">
+
+<div class="reviews-section">
+
+<div class="container">
+
+<div class="review-head">
+
+<div>
+
+<div class="eyebrow">
+<span class="dot"></span>
+Loved by our customers
+</div>
+
+<h2>
+Real people.<br>
+Real love.
+</h2>
+
+</div>
+
+<p>
+A few words from people who have made
+Kishor Nayak part of their everyday routine.
+</p>
+
+</div>
+
+
+<div class="review-scroll">
+
+
+<!-- REVIEW 1 -->
+
+<article class="review-card">
+
+<div class="review-top">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<div class="review-quote">
+“
+</div>
+
+</div>
+
+<p class="review-text">
+“Really refreshing and the whole
+experience from browsing to ordering
+felt super easy.”
+</p>
+
+<div class="review-user">
+
+<div class="review-avatar">
+AS
+</div>
+
+<div>
+<strong>Arjun S.</strong>
+<span>Verified customer</span>
+</div>
+
+</div>
+
+</article>
+
+
+<!-- REVIEW 2 -->
+
+<article class="review-card">
+
+<div class="review-top">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<div class="review-quote">
+“
+</div>
+
+</div>
+
+<p class="review-text">
+“Loved the taste and the packaging.
+It genuinely feels like a premium
+brand.”
+</p>
+
+<div class="review-user">
+
+<div class="review-avatar">
+NK
+</div>
+
+<div>
+<strong>Neha K.</strong>
+<span>Verified customer</span>
+</div>
+
+</div>
+
+</article>
+
+
+<!-- REVIEW 3 -->
+
+<article class="review-card">
+
+<div class="review-top">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<div class="review-quote">
+“
+</div>
+
+</div>
+
+<p class="review-text">
+“Ordered the combo for my family.
+Everything arrived nicely packed and
+fresh.”
+</p>
+
+<div class="review-user">
+
+<div class="review-avatar">
+RK
+</div>
+
+<div>
+<strong>Rohan K.</strong>
+<span>Verified customer</span>
+</div>
+
+</div>
+
+</article>
+
+
+<!-- REVIEW 4 -->
+
+<article class="review-card">
+
+<div class="review-top">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<div class="review-quote">
+“
+</div>
+
+</div>
+
+<p class="review-text">
+“Simple website, beautiful products
+and very smooth ordering. Will
+definitely order again.”
+</p>
+
+<div class="review-user">
+
+<div class="review-avatar">
+PM
+</div>
+
+<div>
+<strong>Priya M.</strong>
+<span>Verified customer</span>
+</div>
+
+</div>
+
+</article>
+
+
+<!-- REVIEW 5 -->
+
+<article class="review-card">
+
+<div class="review-top">
+
+<div class="review-stars">
+★★★★★
+</div>
+
+<div class="review-quote">
+“
+</div>
+
+</div>
+
+<p class="review-text">
+“The products feel thoughtfully made
+and the website experience is
+beautiful.”
+</p>
+
+<div class="review-user">
+
+<div class="review-avatar">
+VK
+</div>
+
+<div>
+<strong>Vikas K.</strong>
+<span>Verified customer</span>
+</div>
+
+</div>
+
+</article>
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section class="section faq-section">
+
+<div class="container">
+
+<div class="faq-grid">
+
+
+<div class="faq-intro">
+
+<div class="eyebrow">
+<span class="dot"></span>
+Need to know
+</div>
+
+<h2>
+Questions,<br>
+answered.
+</h2>
+
+<p>
+Everything you need to know before
+placing your order. Still have a question?
+You can contact us directly.
+</p>
+
+<a href="#contact"
+class="story-link">
+Talk to us
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M5 12h14M13 6l6 6-6 6"/>
+</svg>
+
+</a>
+
+</div>
+
+
+<div class="faq-list">
+
+
+<!-- FAQ 1 -->
+
+<div class="faq-item open">
+
+<button class="faq-question">
+
+<span>
+What products does Kishor Nayak offer?
+</span>
+
+<div class="faq-plus">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M12 5v14M5 12h14"/>
+</svg>
+
+</div>
+
+</button>
+
+<div class="faq-answer">
+
+<div class="faq-answer-inner">
+
+<p>
+Kishor Nayak offers a curated range of
+fruit-based drinks, wellness products,
+refreshing beverages and thoughtfully
+created product combinations.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAQ 2 -->
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span>
+How can I place an order?
+</span>
+
+<div class="faq-plus">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M12 5v14M5 12h14"/>
+</svg>
+
+</div>
+
+</button>
+
+<div class="faq-answer">
+
+<div class="faq-answer-inner">
+
+<p>
+Browse the products, add your favourites
+to the cart and continue to the order
+option. You can also use the WhatsApp
+ordering option for a direct enquiry.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAQ 3 -->
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span>
+Can I order multiple products together?
+</span>
+
+<div class="faq-plus">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M12 5v14M5 12h14"/>
+</svg>
+
+</div>
+
+</button>
+
+<div class="faq-answer">
+
+<div class="faq-answer-inner">
+
+<p>
+Yes. You can add multiple products to
+your cart, adjust quantities and review
+the total before placing your order.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAQ 4 -->
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span>
+Is delivery available?
+</span>
+
+<div class="faq-plus">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M12 5v14M5 12h14"/>
+</svg>
+
+</div>
+
+</button>
+
+<div class="faq-answer">
+
+<div class="faq-answer-inner">
+
+<p>
+Delivery availability, charges and
+delivery timelines can depend on the
+customer's location. Contact us for
+the exact details for your area.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAQ 5 -->
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span>
+How can I contact Kishor Nayak?
+</span>
+
+<div class="faq-plus">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+<path d="M12 5v14M5 12h14"/>
+</svg>
+
+</div>
+
+</button>
+
+<div class="faq-answer">
+
+<div class="faq-answer-inner">
+
+<p>
+You can use the contact section at the
+bottom of the website or connect with
+the brand through WhatsApp for product
+and order related enquiries.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+/* ================= FAQ ACCORDION ================= */
+
+document.querySelectorAll(".faq-question")
+.forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const item =
+      button.closest(".faq-item");
+
+    const wasOpen =
+      item.classList.contains("open");
+
+
+    document.querySelectorAll(".faq-item")
+    .forEach(other=>{
+
+      other.classList.remove("open");
+
+    });
+
+
+    if(!wasOpen){
+      item.classList.add("open");
+    }
+
+  });
+
+});
+</script>
+<!-- ================= PART 7 : CONTACT + NEWSLETTER + FOOTER ================= -->
+
+<style>
+
+/* NEWSLETTER */
+.newsletter-section{
+  padding:35px 0 75px;
+}
+
+.newsletter-box{
+  position:relative;
+  overflow:hidden;
+  min-height:360px;
+  border-radius:36px;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,215,107,.65),transparent 25%),
+    radial-gradient(circle at 10% 90%,rgba(158,211,90,.45),transparent 28%),
+    linear-gradient(135deg,#eaf4d5,#fff8df 55%,#ffe6c8);
+  padding:55px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+}
+
+.newsletter-box:before{
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  right:12%;
+  bottom:-120px;
+  border-radius:50%;
+  background:rgba(255,255,255,.38);
+  filter:blur(2px);
+}
+
+.newsletter-copy{
+  position:relative;
+  z-index:2;
+  max-width:590px;
+}
+
+.newsletter-copy h2{
+  font-family:Manrope;
+  font-size:clamp(38px,5vw,64px);
+  line-height:.94;
+  letter-spacing:-3px;
+}
+
+.newsletter-copy p{
+  margin-top:18px;
+  color:#697060;
+  font-size:13px;
+  line-height:1.7;
+  max-width:460px;
+}
+
+.newsletter-form{
+  position:relative;
+  z-index:2;
+  width:min(100%,430px);
+}
+
+.newsletter-input{
+  width:100%;
+  height:64px;
+  border:1px solid rgba(100,110,80,.18);
+  border-radius:100px;
+  background:rgba(255,255,255,.72);
+  padding:0 150px 0 23px;
+  outline:none;
+  color:var(--ink);
+  font-family:inherit;
+  backdrop-filter:blur(15px);
+}
+
+.newsletter-input::placeholder{
+  color:#969b8e;
+}
+
+.newsletter-submit{
+  position:absolute;
+  right:7px;
+  top:7px;
+  height:50px;
+  padding:0 21px;
+  border:0;
+  border-radius:100px;
+  background:#182018;
+  color:white;
+  font-family:inherit;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.newsletter-submit:hover{
+  transform:translateY(-2px);
+}
+
+
+/* CONTACT */
+.contact-section{
+  padding:20px 0 80px;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.contact-card{
+  min-height:260px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:var(--paper);
+  padding:32px;
+  position:relative;
+  overflow:hidden;
+}
+
+.contact-card.dark{
+  background:#182018;
+  color:#fff;
+  border-color:#182018;
+}
+
+.contact-card h3{
+  font-family:Manrope;
+  font-size:28px;
+  letter-spacing:-1.3px;
+}
+
+.contact-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  max-width:390px;
+  margin-top:13px;
+}
+
+.contact-card.dark p{
+  color:#b8c0b2;
+}
+
+.contact-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:25px;
+}
+
+.contact-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:43px;
+  padding:0 15px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  font-size:11px;
+  font-weight:800;
+  text-decoration:none;
+  transition:.25s;
+}
+
+.contact-link:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(20,30,20,.08);
+}
+
+.contact-card.dark .contact-link{
+  background:#273026;
+  border-color:#384238;
+  color:#fff;
+}
+
+.contact-decoration{
+  position:absolute;
+  width:160px;
+  height:160px;
+  right:-50px;
+  bottom:-55px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#dff2b4,#ffb76a);
+  opacity:.7;
+}
+
+
+/* FOOTER */
+.footer{
+  border-top:1px solid var(--line);
+  padding:55px 0 25px;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:50px;
+}
+
+.footer-brand{
+  max-width:310px;
+}
+
+.footer-logo{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-family:Manrope;
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.footer-logo-mark{
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  background:linear-gradient(145deg,#a5d55f,#ffd36d);
+  display:grid;
+  place-items:center;
+  color:#182018;
+  font-size:13px;
+}
+
+.footer-brand p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+  margin-top:17px;
+}
+
+.footer-title{
+  font-family:Manrope;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  margin-bottom:17px;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+
+.footer-links a{
+  color:#737970;
+  text-decoration:none;
+  font-size:11px;
+  transition:.2s;
+}
+
+.footer-links a:hover{
+  color:var(--ink);
+  transform:translateX(3px);
+}
+
+.footer-bottom{
+  border-top:1px solid var(--line);
+  padding-top:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.footer-bottom p{
+  color:#999d95;
+  font-size:10px;
+}
+
+.footer-social{
+  display:flex;
+  gap:8px;
+}
+
+.social-btn{
+  width:35px;
+  height:35px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--ink);
+  text-decoration:none;
+  transition:.25s;
+}
+
+.social-btn:hover{
+  background:var(--ink);
+  color:white;
+  transform:translateY(-3px);
+}
+
+.social-btn svg{
+  width:14px;
+  height:14px;
+}
+
+
+/* MOBILE */
+@media(max-width:800px){
+
+.newsletter-box{
+  padding:38px 25px;
+  min-height:430px;
+  display:block;
+  border-radius:28px;
+}
+
+.newsletter-copy h2{
+  font-size:42px;
+}
+
+.newsletter-form{
+  margin-top:35px;
+}
+
+.contact-grid{
+  grid-template-columns:1fr;
+}
+
+.footer-top{
+  grid-template-columns:1fr 1fr;
+  gap:35px 20px;
+}
+
+.footer-brand{
+  grid-column:1/-1;
+}
+
+}
+
+@media(max-width:520px){
+
+.newsletter-box{
+  min-height:440px;
+}
+
+.newsletter-copy h2{
+  letter-spacing:-2px;
+}
+
+.newsletter-input{
+  padding-right:23px;
+  height:58px;
+}
+
+.newsletter-submit{
+  position:relative;
+  top:auto;
+  right:auto;
+  width:100%;
+  height:52px;
+  margin-top:9px;
+}
+
+.contact-card{
+  min-height:230px;
+  padding:25px;
+}
+
+.footer{
+  padding-top:42px;
+}
+
+.footer-top{
+  grid-template-columns:1fr 1fr;
+}
+
+.footer-bottom{
+  display:block;
+}
+
+.footer-social{
+  margin-top:17px;
+}
+
+}
+
+</style>
+
+
+<!-- ================= NEWSLETTER ================= -->
+
+<section class="newsletter-section">
+
+<div class="container">
+
+<div class="newsletter-box">
+
+<div class="newsletter-copy">
+
+<div class="eyebrow">
+<span class="dot"></span>
+Stay in the loop
+</div>
+
+<h2>
+Fresh updates,<br>
+straight to you.
+</h2>
+
+<p>
+Get new product updates, fresh launches,
+offers and useful wellness inspiration
+from Kishor Nayak.
+</p>
+
+</div>
+
+
+<form class="newsletter-form" id="newsletterForm">
+
+<input
+class="newsletter-input"
+type="email"
+id="newsletterEmail"
+placeholder="Your email address"
+required
+>
+
+<button
+class="newsletter-submit"
+type="submit">
+Subscribe
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= CONTACT ================= -->
+
+<section class="contact-section" id="contact">
+
+<div class="container">
+
+<div class="contact-grid">
+
+
+<div class="contact-card">
+
+<div class="eyebrow">
+<span class="dot"></span>
+Let's connect
+</div>
+
+<h3>
+Have a question?
+Talk to us.
+</h3>
+
+<p>
+Need help choosing a product, checking
+an order or simply want to know more?
+Reach out to the Kishor Nayak team.
+</p>
+
+<div class="contact-links">
+
+<a href="#"
+class="contact-link"
+id="contactWhatsApp">
+WhatsApp
+</a>
+
+<a href="mailto:hello@kishornayak.com"
+class="contact-link">
+Email us
+</a>
+
+</div>
+
+<div class="contact-decoration"></div>
+
+</div>
+
+
+
+<div class="contact-card dark">
+
+<div class="eyebrow light">
+<span class="dot"></span>
+Kishor Nayak
+</div>
+
+<h3>
+Good things,
+made simple.
+</h3>
+
+<p>
+Thoughtfully selected products for
+everyday freshness, wellness and
+better moments.
+</p>
+
+<div class="contact-links">
+
+<a href="#shop"
+class="contact-link">
+Shop products
+</a>
+
+<a href="#story"
+class="contact-link">
+Our story
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+<div class="container">
+
+<div class="footer-top">
+
+
+<div class="footer-brand">
+
+<div class="footer-logo">
+
+<div class="footer-logo-mark">
+K
+</div>
+
+Kishor Nayak
+
+</div>
+
+<p>
+Freshness, thoughtfully presented.
+Explore our collection of fruit-based
+drinks, wellness products and everyday
+goodness.
+</p>
+
+</div>
+
+
+
+<div>
+
+<div class="footer-title">
+Shop
+</div>
+
+<div class="footer-links">
+
+<a href="#shop">
+All Products
+</a>
+
+<a href="#collections">
+Collections
+</a>
+
+<a href="#shop">
+Best Sellers
+</a>
+
+<a href="#shop">
+Combos
+</a>
+
+</div>
+
+</div>
+
+
+
+<div>
+
+<div class="footer-title">
+Explore
+</div>
+
+<div class="footer-links">
+
+<a href="#story">
+Our Story
+</a>
+
+<a href="#reviews">
+Reviews
+</a>
+
+<a href="#contact">
+Contact
+</a>
+
+<a href="#faq">
+FAQs
+</a>
+
+</div>
+
+</div>
+
+
+
+<div>
+
+<div class="footer-title">
+Information
+</div>
+
+<div class="footer-links">
+
+<a href="#">
+Privacy Policy
+</a>
+
+<a href="#">
+Terms & Conditions
+</a>
+
+<a href="#">
+Shipping Policy
+</a>
+
+<a href="#">
+Refund Policy
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="footer-bottom">
+
+<p>
+© 2026 Kishor Nayak. All rights reserved.
+</p>
+
+
+<div class="footer-social">
+
+<a href="#"
+class="social-btn"
+aria-label="Instagram">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="1.8">
+
+<rect x="3" y="3"
+width="18"
+height="18"
+rx="5"/>
+
+<circle cx="12"
+cy="12"
+r="4"/>
+
+<circle cx="17.5"
+cy="6.5"
+r=".7"
+fill="currentColor"
+stroke="none"/>
+
+</svg>
+
+</a>
+
+
+<a href="#"
+class="social-btn"
+aria-label="Facebook">
+
+<svg viewBox="0 0 24 24"
+fill="currentColor">
+
+<path d="M14 8h3V4h-3c-3.3 0-5 1.8-5 5v3H6v4h3v4h4v-4h3.2l.8-4H13V9c0-.7.3-1 1-1Z"/>
+
+</svg>
+
+</a>
+
+
+<a href="#"
+class="social-btn"
+aria-label="WhatsApp">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="1.8">
+
+<path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"/>
+
+<path d="M8.5 8.5c.2-.5.5-.6.8-.6h.5c.2 0 .4.1.5.4l.7 1.5c.1.2.1.4-.1.6l-.5.6c.5 1 1.3 1.7 2.3 2.1l.6-.5c.2-.2.4-.2.6-.1l1.4.7c.3.1.4.3.3.6-.2.7-.8 1.2-1.5 1.3-1.2.1-3-.8-4.3-2.1-1.2-1.2-2-2.9-1.8-4.5Z"/>
+
+</svg>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<script>
+
+/* ================= NEWSLETTER ================= */
+
+const newsletterForm =
+document.getElementById("newsletterForm");
+
+if(newsletterForm){
+
+newsletterForm.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+const email =
+document.getElementById("newsletterEmail").value.trim();
+
+if(!email) return;
+
+if(typeof toast === "function"){
+
+toast("Thanks! You're on the list.");
+
+}else{
+
+alert("Thanks! You're on the list.");
+
+}
+
+newsletterForm.reset();
+
+});
+
+}
+
+
+/* ================= CONTACT WHATSAPP ================= */
+
+const contactWhatsApp =
+document.getElementById("contactWhatsApp");
+
+if(contactWhatsApp){
+
+contactWhatsApp.addEventListener("click",(e)=>{
+
+e.preventDefault();
+
+const number="91XXXXXXXXXX";
+
+const message=
+"Hello Kishor Nayak, I would like to know more about your products.";
+
+window.open(
+"https://wa.me/"+number+
+"?text="+encodeURIComponent(message),
+"_blank"
+);
+
+});
+
+}
+
+</script>
+
+<!-- ================= END PART 7 ================= -->
+  <!-- ================= PART 8 : FINAL JS + MOBILE + ANIMATIONS ================= -->
+
+<style>
+
+/* MOBILE MENU */
+.mobile-menu{
+  position:fixed;
+  inset:0;
+  z-index:9990;
+  background:rgba(247,245,236,.97);
+  backdrop-filter:blur(22px);
+  transform:translateY(-105%);
+  transition:.45s cubic-bezier(.7,0,.2,1);
+  padding:100px 24px 30px;
+  overflow:auto;
+}
+
+.mobile-menu.active{
+  transform:translateY(0);
+}
+
+.mobile-menu-close{
+  position:absolute;
+  right:22px;
+  top:22px;
+  width:43px;
+  height:43px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:#fff;
+  display:grid;
+  place-items:center;
+}
+
+.mobile-menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.mobile-menu-links a{
+  color:var(--ink);
+  text-decoration:none;
+  font-family:Manrope;
+  font-size:38px;
+  font-weight:800;
+  letter-spacing:-2px;
+  padding:10px 0;
+}
+
+.mobile-menu-footer{
+  border-top:1px solid var(--line);
+  margin-top:30px;
+  padding-top:25px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+}
+
+
+/* SCROLL REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+
+/* IMAGE HOVER */
+.product-card .product-image{
+  overflow:hidden;
+}
+
+.product-card .product-image img{
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+
+.product-card:hover .product-image img{
+  transform:scale(1.045);
+}
+
+
+/* NAV SCROLL */
+.navbar.scrolled{
+  background:rgba(255,253,247,.88);
+  backdrop-filter:blur(18px);
+  box-shadow:0 10px 35px rgba(20,30,20,.06);
+}
+
+
+/* BACK TO TOP */
+.back-top{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:800;
+  width:45px;
+  height:45px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:#fffdf8;
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(10px);
+  transition:.3s;
+  box-shadow:0 12px 30px rgba(30,40,25,.10);
+}
+
+.back-top.visible{
+  opacity:1;
+  pointer-events:auto;
+  transform:none;
+}
+
+.back-top svg{
+  width:16px;
+}
+
+
+/* TOAST */
+.kn-toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  z-index:10000;
+  transform:translate(-50%,20px);
+  background:#182018;
+  color:white;
+  padding:13px 18px;
+  border-radius:100px;
+  font-size:11px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  white-space:nowrap;
+  box-shadow:0 15px 35px rgba(0,0,0,.18);
+}
+
+.kn-toast.active{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+
+/* MOBILE */
+@media(max-width:800px){
+
+.mobile-menu-links a{
+  font-size:34px;
+}
+
+}
+
+@media(min-width:801px){
+
+.mobile-menu{
+  display:none;
+}
+
+}
+
+
+/* REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+
+*{
+  scroll-behavior:auto!important;
+  animation:none!important;
+  transition:none!important;
+}
+
+.reveal{
+  opacity:1;
+  transform:none;
+}
+
+}
+
+</style>
+
+
+<!-- ================= MOBILE MENU ================= -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+<button
+class="mobile-menu-close"
+id="mobileMenuClose"
+aria-label="Close menu">
+
+<svg viewBox="0 0 24 24"
+width="19"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+
+<path d="M6 6l12 12M18 6L6 18"/>
+
+</svg>
+
+</button>
+
+
+<div class="mobile-menu-links">
+
+<a href="#shop">Shop</a>
+
+<a href="#collections">Collections</a>
+
+<a href="#story">Our Story</a>
+
+<a href="#reviews">Reviews</a>
+
+<a href="#contact">Contact</a>
+
+</div>
+
+
+<div class="mobile-menu-footer">
+
+Freshness, thoughtfully presented.
+
+<br><br>
+
+Kishor Nayak — everyday goodness
+made simple.
+
+</div>
+
+</div>
+
+
+
+<!-- ================= BACK TO TOP ================= -->
+
+<button
+class="back-top"
+id="backTop"
+aria-label="Back to top">
+
+<svg viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2">
+
+<path d="M12 19V5"/>
+<path d="m6 11 6-6 6 6"/>
+
+</svg>
+
+</button>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="kn-toast" id="knToast"></div>
+
+
+
+<script>
+
+/* =====================================================
+   KISHOR NAYAK — FINAL WEBSITE ENGINE
+   ===================================================== */
+
+(function(){
+
+"use strict";
+
+
+/* ================= CONFIG ================= */
+
+/*
+  IMPORTANT:
+  Later only this number needs to be changed
+  for WhatsApp orders.
+*/
+
+const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+
+/* ================= TOAST ================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const box =
+  document.getElementById("knToast");
+
+  if(!box) return;
+
+  box.textContent = message;
+
+  box.classList.add("active");
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(()=>{
+
+    box.classList.remove("active");
+
+  },2600);
+
+}
+
+/* Make toast available to previous parts */
+window.knToast = showToast;
+
+
+/* ================= MOBILE MENU ================= */
+
+const mobileMenu =
+document.getElementById("mobileMenu");
+
+const mobileClose =
+document.getElementById("mobileMenuClose");
+
+
+function openMobileMenu(){
+
+  if(!mobileMenu) return;
+
+  mobileMenu.classList.add("active");
+
+  document.body.style.overflow="hidden";
+
+}
+
+
+function closeMobileMenu(){
+
+  if(!mobileMenu) return;
+
+  mobileMenu.classList.remove("active");
+
+  document.body.style.overflow="";
+
+}
+
+
+/*
+  Existing navbar menu button
+  is automatically detected.
+*/
+
+const menuButton =
+document.querySelector(
+  ".menu-btn"
+) ||
+document.querySelector(
+  '[aria-label="Menu"]'
+) ||
+document.querySelector(
+  '[data-menu]'
+);
+
+
+if(menuButton){
+
+  menuButton.addEventListener(
+    "click",
+    openMobileMenu
+  );
+
+}
+
+
+if(mobileClose){
+
+  mobileClose.addEventListener(
+    "click",
+    closeMobileMenu
+  );
+
+}
+
+
+document
+.querySelectorAll(".mobile-menu-links a")
+.forEach(link=>{
+
+  link.addEventListener(
+    "click",
+    closeMobileMenu
+  );
+
+});
+
+
+/* ================= ESCAPE ================= */
+
+document.addEventListener("keydown",(e)=>{
+
+  if(e.key==="Escape"){
+
+    closeMobileMenu();
+
+  }
+
+});
+
+
+/* ================= NAVBAR SCROLL ================= */
+
+const navbar =
+document.querySelector(".navbar") ||
+document.querySelector("header");
+
+
+function updateNavbar(){
+
+  if(!navbar) return;
+
+  if(window.scrollY>35){
+
+    navbar.classList.add("scrolled");
+
+  }else{
+
+    navbar.classList.remove("scrolled");
+
+  }
+
+}
+
+
+window.addEventListener(
+  "scroll",
+  updateNavbar,
+  {passive:true}
+);
+
+updateNavbar();
+
+
+/* ================= REVEAL ================= */
+
+/*
+  Automatically adds reveal effect
+  to major sections.
+*/
+
+const revealTargets = document.querySelectorAll(
+  "section:not(.hero), .review-card, .contact-card, .product-card, .newsletter-box"
+);
+
+
+revealTargets.forEach((element,index)=>{
+
+  if(!element.classList.contains("reveal")){
+
+    element.classList.add("reveal");
+
+  }
+
+});
+
+
+const revealObserver =
+new IntersectionObserver(
+
+(entries)=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+
+      entry.target.classList.add("show");
+
+      revealObserver.unobserve(
+        entry.target
+      );
+
+    }
+
+  });
+
+},
+
+{
+  threshold:.08,
+  rootMargin:"0px 0px -40px 0px"
+}
+
+);
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(element=>{
+
+  revealObserver.observe(element);
+
+});
+
+
+/* ================= WISHLIST ================= */
+
+document
+.querySelectorAll(".wishlist-btn")
+.forEach(button=>{
+
+  button.addEventListener(
+    "click",
+    (event)=>{
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      button.classList.toggle("active");
+
+      const active =
+      button.classList.contains("active");
+
+      showToast(
+        active
+        ? "Added to favourites ♡"
+        : "Removed from favourites"
+      );
+
+    }
+  );
+
+});
+
+
+/* ================= QUICK WHATSAPP ================= */
+
+/*
+  Part 4 already has a WhatsApp listener.
+  We replace that button so there is only
+  one clean final listener.
+*/
+
+const oldQuickWhatsApp =
+document.getElementById(
+  "quickWhatsApp"
+);
+
+
+if(oldQuickWhatsApp){
+
+  const newQuickWhatsApp =
+  oldQuickWhatsApp.cloneNode(true);
+
+  oldQuickWhatsApp.parentNode.replaceChild(
+    newQuickWhatsApp,
+    oldQuickWhatsApp
+  );
+
+
+  newQuickWhatsApp.addEventListener(
+    "click",
+    function(){
+
+      const title =
+      document.getElementById(
+        "quickTitle"
+      )?.textContent ||
+      "Product";
+
+      const message =
+      "Hello Kishor Nayak,%0A%0A" +
+      "I am interested in: " +
+      title +
+      "%0A%0APlease share details.";
+
+      window.open(
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        message,
+        "_blank"
+      );
+
+    }
+  );
+
+}
+
+
+/* ================= CART CHECKOUT ================= */
+
+const checkoutButton =
+document.getElementById(
+  "checkoutBtn"
+);
+
+
+if(checkoutButton){
+
+  checkoutButton.addEventListener(
+    "click",
+    function(){
+
+      if(
+        typeof cart === "undefined" ||
+        !cart.length
+      ){
+
+        showToast(
+          "Your cart is empty"
+        );
+
+        return;
+
+      }
+
+
+      let total=0;
+
+      let message =
+      "Hello Kishor Nayak,%0A%0A" +
+      "I would like to place an order:%0A%0A";
+
+
+      cart.forEach((item,index)=>{
+
+        const price =
+        Number(item.price) || 0;
+
+        const quantity =
+        Number(item.qty) || 1;
+
+        total += price * quantity;
+
+        message +=
+        (index+1) +
+        ". " +
+        item.name +
+        " x " +
+        quantity +
+        " — ₹" +
+        (price*quantity) +
+        "%0A";
+
+      });
+
+
+      message +=
+      "%0AOrder Total: ₹" +
+      total +
+      "%0A%0A" +
+      "Please share payment and delivery details.";
+
+
+      window.open(
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        message,
+        "_blank"
+      );
+
+
+      showToast(
+        "Opening WhatsApp order..."
+      );
+
+    }
+  );
+
+}
+
+
+/* ================= CONTACT WHATSAPP ================= */
+
+const contactButton =
+document.getElementById(
+  "contactWhatsApp"
+);
+
+
+if(contactButton){
+
+  const newContact =
+  contactButton.cloneNode(true);
+
+  contactButton.parentNode.replaceChild(
+    newContact,
+    contactButton
+  );
+
+
+  newContact.addEventListener(
+    "click",
+    function(e){
+
+      e.preventDefault();
+
+      const message =
+      "Hello Kishor Nayak,%0A%0A" +
+      "I would like to know more about your products.";
+
+      window.open(
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        message,
+        "_blank"
+      );
+
+    }
+  );
+
+}
+
+
+/* ================= SMOOTH ANCHORS ================= */
+
+document
+.querySelectorAll('a[href^="#"]')
+.forEach(link=>{
+
+  link.addEventListener(
+    "click",
+    function(e){
+
+      const id =
+      this.getAttribute("href");
+
+      if(!id || id==="#") return;
+
+      const target =
+      document.querySelector(id);
+
+      if(!target) return;
+
+      e.preventDefault();
+
+      target.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    }
+  );
+
+});
+
+
+/* ================= BACK TO TOP ================= */
+
+const backTop =
+document.getElementById(
+  "backTop"
+);
+
+
+function updateBackTop(){
+
+  if(!backTop) return;
+
+  if(window.scrollY>650){
+
+    backTop.classList.add(
+      "visible"
+    );
+
+  }else{
+
+    backTop.classList.remove(
+      "visible"
+    );
+
+  }
+
+}
+
+
+window.addEventListener(
+  "scroll",
+  updateBackTop,
+  {passive:true}
+);
+
+
+if(backTop){
+
+  backTop.addEventListener(
+    "click",
+    ()=>{
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+    }
+  );
+
+}
+
+
+/* ================= SEARCH UX ================= */
+
+const searchInput =
+document.getElementById(
+  "searchInput"
+);
+
+
+if(searchInput){
+
+  searchInput.addEventListener(
+    "input",
+    ()=>{
+
+      if(
+        typeof renderSearch ===
+        "function"
+      ){
+
+        renderSearch(
+          searchInput.value
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ================= PRODUCT IMAGE FALLBACK ================= */
+
+document
+.querySelectorAll(
+  ".product-image img"
+)
+.forEach(img=>{
+
+  img.addEventListener(
+    "error",
+    ()=>{
+
+      img.style.display="none";
+
+    }
+  );
+
+});
+
+
+/* ================= CONSOLE BRAND ================= */
+
+console.log(
+  "%cKISHOR NAYAK",
+  "font-size:20px;font-weight:900;"
+);
+
+console.log(
+  "Premium wellness storefront loaded."
+);
+
+
+})();
+
+</script>
+
+
+<!-- ================= FINAL DOCUMENT ================= -->
+
+</main>
+
+</body>
+
+</html>
