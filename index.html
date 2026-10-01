@@ -1783,3 +1783,914 @@ document.getElementById("checkoutBtn")
 
 });
 </script>
+<!-- ================= PART 4 : SEARCH + QUICK VIEW ================= -->
+
+<style>
+/* SEARCH OVERLAY */
+.search-overlay{
+  position:fixed;
+  inset:0;
+  z-index:2100;
+  background:rgba(18,24,18,.42);
+  backdrop-filter:blur(10px);
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+}
+.search-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.search-panel{
+  width:min(720px,94%);
+  margin:90px auto 0;
+  background:#fffdf8;
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:30px;
+  box-shadow:0 30px 80px rgba(20,30,15,.2);
+  overflow:hidden;
+  transform:translateY(-18px);
+  transition:.35s;
+}
+.search-overlay.show .search-panel{
+  transform:translateY(0);
+}
+
+.search-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:15px;
+  border-bottom:1px solid var(--line);
+}
+.search-input-wrap{
+  flex:1;
+  height:48px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#f3f3eb;
+  border-radius:16px;
+  padding:0 15px;
+}
+.search-input-wrap svg{
+  width:18px;
+  color:#70766d;
+}
+.search-input{
+  flex:1;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:14px;
+  color:var(--ink);
+}
+.search-input::placeholder{
+  color:#9a9e96;
+}
+.search-close{
+  width:45px;
+  height:45px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+}
+.search-close svg{
+  width:17px;
+}
+
+.search-results{
+  max-height:430px;
+  overflow:auto;
+  padding:12px;
+}
+
+.search-result{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:11px;
+  border-radius:18px;
+  transition:.2s;
+  cursor:pointer;
+}
+.search-result:hover{
+  background:#f3f5eb;
+}
+.search-result-img{
+  width:58px;
+  height:64px;
+  border-radius:15px;
+  background:linear-gradient(145deg,#eaf2d5,#c8e78b);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+.search-result-img .mini-bottle{
+  width:25px;
+  height:42px;
+  border-radius:7px 7px 10px 10px;
+  background:linear-gradient(120deg,#fff,#e6ead9);
+  position:relative;
+}
+.search-result-img .mini-bottle:after{
+  content:"";
+  position:absolute;
+  width:10px;
+  height:5px;
+  left:7px;
+  top:-3px;
+  border-radius:3px;
+  background:#3c4b35;
+}
+.search-result-info{
+  flex:1;
+}
+.search-result-info h4{
+  font-family:Manrope;
+  font-size:13px;
+}
+.search-result-info p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+.search-result-price{
+  font-family:Manrope;
+  font-size:14px;
+  font-weight:800;
+}
+.no-results{
+  text-align:center;
+  padding:50px 20px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* QUICK VIEW */
+.quick-overlay{
+  position:fixed;
+  inset:0;
+  z-index:2200;
+  background:rgba(18,24,18,.45);
+  backdrop-filter:blur(7px);
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+}
+.quick-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+.quick-modal{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(850px,92%);
+  max-height:90vh;
+  overflow:auto;
+  transform:translate(-50%,-46%);
+  background:#fffdf8;
+  border-radius:32px;
+  box-shadow:0 35px 90px rgba(20,30,15,.25);
+  transition:.35s;
+}
+.quick-overlay.show .quick-modal{
+  transform:translate(-50%,-50%);
+}
+.quick-close{
+  position:absolute;
+  right:16px;
+  top:16px;
+  z-index:10;
+  width:40px;
+  height:40px;
+  border:1px solid rgba(0,0,0,.08);
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(10px);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+}
+.quick-close svg{
+  width:16px;
+}
+.quick-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.quick-visual{
+  min-height:500px;
+  background:linear-gradient(145deg,#e8f1d2,#c5e67f);
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.quick-visual:before{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+}
+.quick-big-bottle{
+  width:155px;
+  height:270px;
+  border-radius:28px 28px 38px 38px;
+  background:linear-gradient(120deg,#fff,#e7eadb);
+  box-shadow:0 35px 55px rgba(40,55,25,.18);
+  position:relative;
+  z-index:2;
+  transform:rotate(4deg);
+}
+.quick-big-bottle:before{
+  content:"";
+  position:absolute;
+  width:58px;
+  height:30px;
+  top:-23px;
+  left:49px;
+  background:#3c4b35;
+  border-radius:8px 8px 3px 3px;
+}
+.quick-label{
+  position:absolute;
+  left:13px;
+  right:13px;
+  top:77px;
+  height:115px;
+  border-radius:18px;
+  background:#f8f1d9;
+  display:grid;
+  place-items:center;
+  text-align:center;
+}
+.quick-label strong{
+  font-family:Manrope;
+  font-size:17px;
+  line-height:1;
+}
+.quick-label small{
+  display:block;
+  font-size:7px;
+  margin-top:7px;
+  color:#777d6b;
+  letter-spacing:1px;
+}
+.quick-info{
+  padding:50px 38px;
+}
+.quick-tag{
+  display:inline-block;
+  background:#edf5dc;
+  color:#557833;
+  padding:7px 11px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:700;
+}
+.quick-info h2{
+  font-family:Manrope;
+  font-size:38px;
+  line-height:1;
+  letter-spacing:-2px;
+  margin:17px 0 10px;
+}
+.quick-info p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+.quick-rating{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin:17px 0;
+  font-size:11px;
+}
+.quick-rating .stars{
+  color:#e2a42c;
+  letter-spacing:1px;
+}
+.quick-price{
+  font-family:Manrope;
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:18px;
+}
+.quick-old{
+  color:#a0a39d;
+  text-decoration:line-through;
+  font-family:"DM Sans";
+  font-size:13px;
+  font-weight:400;
+  margin-left:5px;
+}
+.quick-actions{
+  display:flex;
+  gap:9px;
+}
+.quick-add{
+  flex:1;
+  border:0;
+  border-radius:50px;
+  padding:15px;
+  background:var(--ink);
+  color:white;
+  font-weight:700;
+}
+.quick-wa{
+  width:52px;
+  border:1px solid var(--line);
+  background:#f1f5e9;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+}
+.quick-wa svg{
+  width:19px;
+}
+
+/* VIEW DETAILS BUTTON */
+.product-image{
+  cursor:pointer;
+}
+.product-image:after{
+  content:"Quick view";
+  position:absolute;
+  left:50%;
+  bottom:13px;
+  transform:translate(-50%,10px);
+  opacity:0;
+  background:rgba(24,32,24,.88);
+  color:#fff;
+  border-radius:30px;
+  padding:8px 13px;
+  font-size:9px;
+  font-weight:700;
+  transition:.25s;
+  pointer-events:none;
+}
+.product-card:hover .product-image:after{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* CATEGORY ACTIVE */
+.category-card.active{
+  box-shadow:0 0 0 3px rgba(24,32,24,.15);
+  transform:translateY(-5px);
+}
+
+/* SEARCH MOBILE */
+@media(max-width:600px){
+.search-panel{
+  margin:74px auto 0;
+  border-radius:24px;
+}
+.search-results{
+  max-height:65vh;
+}
+.quick-modal{
+  width:94%;
+  max-height:88vh;
+  border-radius:25px;
+}
+.quick-content{
+  grid-template-columns:1fr;
+}
+.quick-visual{
+  min-height:300px;
+}
+.quick-big-bottle{
+  transform:scale(.72) rotate(4deg);
+}
+.quick-info{
+  padding:27px 23px 30px;
+}
+.quick-info h2{
+  font-size:30px;
+}
+.quick-actions{
+  margin-top:5px;
+}
+}
+</style>
+
+
+<!-- ================= SEARCH ================= -->
+
+<div class="search-overlay" id="searchOverlay">
+
+<div class="search-panel">
+
+<div class="search-top">
+
+<div class="search-input-wrap">
+
+<svg viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m20 20-4-4"></path>
+</svg>
+
+<input
+class="search-input"
+id="searchInput"
+type="search"
+placeholder="Search juices, wellness, combos..."
+autocomplete="off"
+>
+
+</div>
+
+<button class="search-close" id="searchClose">
+
+<svg viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2">
+<path d="m6 6 12 12M18 6 6 18"></path>
+</svg>
+
+</button>
+
+</div>
+
+<div class="search-results" id="searchResults"></div>
+
+</div>
+</div>
+
+
+<!-- ================= QUICK VIEW ================= -->
+
+<div class="quick-overlay" id="quickOverlay">
+
+<div class="quick-modal">
+
+<button class="quick-close" id="quickClose">
+
+<svg viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2">
+<path d="m6 6 12 12M18 6 6 18"></path>
+</svg>
+
+</button>
+
+<div class="quick-content">
+
+<div class="quick-visual">
+
+<div class="quick-big-bottle">
+<div class="quick-label">
+<div>
+<strong>KISHOR<br>NAYAK</strong>
+<small>FRUIT • WELLNESS</small>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="quick-info">
+
+<span class="quick-tag" id="quickTag">
+BEST SELLER
+</span>
+
+<h2 id="quickTitle">
+Premium Fruit Juice
+</h2>
+
+<p id="quickDesc">
+Fresh fruity goodness for your everyday moments.
+</p>
+
+<div class="quick-rating">
+<span class="stars">★★★★★</span>
+<span>4.9 · 128 reviews</span>
+</div>
+
+<div class="quick-price" id="quickPrice">
+₹199
+<span class="quick-old">₹249</span>
+</div>
+
+<div class="quick-actions">
+
+<button class="quick-add" id="quickAdd">
+Add to cart
+</button>
+
+<button class="quick-wa" id="quickWhatsApp"
+aria-label="WhatsApp order">
+
+<svg viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="1.8">
+<path d="M20 11.5a8.2 8.2 0 0 1-12.3 7.1L4 20l1.4-3.6A8.2 8.2 0 1 1 20 11.5Z"/>
+<path d="M8.5 8.5c.3 1.7 2.2 3.8 3.8 4.5.6.3 1.3.2 1.7-.3l.5-.6"/>
+</svg>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<script>
+/* ================= SEARCH ENGINE ================= */
+
+const searchOverlay =
+document.getElementById("searchOverlay");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const searchResults =
+document.getElementById("searchResults");
+
+const searchClose =
+document.getElementById("searchClose");
+
+
+/* NAV SEARCH BUTTON */
+const navSearch =
+document.querySelector(
+'.nav-actions .icon[aria-label="Search"]'
+);
+
+
+function openSearch(){
+
+  searchOverlay.classList.add("show");
+
+  document.body.style.overflow="hidden";
+
+  setTimeout(()=>{
+    searchInput.focus();
+    renderSearch("");
+  },150);
+
+}
+
+
+function closeSearch(){
+
+  searchOverlay.classList.remove("show");
+
+  document.body.style.overflow="";
+
+  searchInput.value="";
+
+}
+
+
+if(navSearch){
+  navSearch.addEventListener("click",openSearch);
+}
+
+searchClose.addEventListener("click",closeSearch);
+
+searchOverlay.addEventListener("click",(e)=>{
+
+  if(e.target === searchOverlay){
+    closeSearch();
+  }
+
+});
+
+
+/* SEARCH PRODUCTS */
+function getAllProducts(){
+
+  return [...document.querySelectorAll(".product-card")];
+
+}
+
+
+function renderSearch(query){
+
+  const products=getAllProducts();
+
+  const q=query.toLowerCase().trim();
+
+  const matches=products.filter(card=>{
+
+    const title=
+      card.querySelector("h3")
+      ?.textContent.toLowerCase() || "";
+
+    const desc=
+      card.querySelector(".product-desc")
+      ?.textContent.toLowerCase() || "";
+
+    const category=
+      card.dataset.category?.toLowerCase() || "";
+
+    return !q ||
+      title.includes(q) ||
+      desc.includes(q) ||
+      category.includes(q);
+
+  });
+
+
+  if(!matches.length){
+
+    searchResults.innerHTML=`
+      <div class="no-results">
+        No products found for "<b>${query}</b>"
+      </div>
+    `;
+
+    return;
+  }
+
+
+  searchResults.innerHTML="";
+
+
+  matches.forEach(card=>{
+
+    const title=
+      card.querySelector("h3")?.textContent.trim();
+
+    const desc=
+      card.querySelector(".product-desc")?.textContent.trim();
+
+    const price=
+      card.querySelector(".price")?.textContent.trim();
+
+    const result=
+      document.createElement("div");
+
+    result.className="search-result";
+
+    result.innerHTML=`
+
+      <div class="search-result-img">
+        <div class="mini-bottle"></div>
+      </div>
+
+      <div class="search-result-info">
+        <h4>${title}</h4>
+        <p>${desc}</p>
+      </div>
+
+      <div class="search-result-price">
+        ${price}
+      </div>
+
+    `;
+
+
+    result.addEventListener("click",()=>{
+
+      closeSearch();
+
+      openQuickView(card);
+
+    });
+
+
+    searchResults.appendChild(result);
+
+  });
+
+}
+
+
+searchInput.addEventListener("input",()=>{
+  renderSearch(searchInput.value);
+});
+
+
+/* ESC KEY */
+document.addEventListener("keydown",(e)=>{
+
+  if(e.key==="Escape"){
+
+    closeSearch();
+
+    closeQuickView();
+
+    closeCart();
+
+  }
+
+});
+
+
+/* ================= QUICK VIEW ================= */
+
+const quickOverlay=
+document.getElementById("quickOverlay");
+
+const quickClose=
+document.getElementById("quickClose");
+
+const quickTitle=
+document.getElementById("quickTitle");
+
+const quickDesc=
+document.getElementById("quickDesc");
+
+const quickPrice=
+document.getElementById("quickPrice");
+
+const quickTag=
+document.getElementById("quickTag");
+
+const quickAdd=
+document.getElementById("quickAdd");
+
+const quickWhatsApp=
+document.getElementById("quickWhatsApp");
+
+let selectedProduct=null;
+
+
+function openQuickView(card){
+
+  selectedProduct=card;
+
+  const title=
+    card.querySelector("h3")?.textContent.trim()
+    || "Product";
+
+  const desc=
+    card.querySelector(".product-desc")
+    ?.textContent.trim()
+    || "";
+
+  const price=
+    card.querySelector(".price")
+    ?.textContent.trim()
+    || "₹0";
+
+  const badge=
+    card.querySelector(".product-badge")
+    ?.textContent.trim()
+    || "KISHOR NAYAK";
+
+
+  quickTitle.textContent=title;
+
+  quickDesc.textContent=desc;
+
+  quickPrice.innerHTML=price;
+
+  quickTag.textContent=badge;
+
+
+  quickOverlay.classList.add("show");
+
+  document.body.style.overflow="hidden";
+
+}
+
+
+function closeQuickView(){
+
+  quickOverlay.classList.remove("show");
+
+  document.body.style.overflow="";
+
+  selectedProduct=null;
+
+}
+
+
+quickClose.addEventListener(
+"click",
+closeQuickView
+);
+
+
+quickOverlay.addEventListener("click",(e)=>{
+
+  if(e.target===quickOverlay){
+    closeQuickView();
+  }
+
+});
+
+
+/* CLICK PRODUCT IMAGE */
+document.querySelectorAll(".product-card")
+.forEach(card=>{
+
+  const image=
+    card.querySelector(".product-image");
+
+  if(image){
+
+    image.addEventListener("click",(e)=>{
+
+      if(e.target.closest(".wish")){
+        return;
+      }
+
+      openQuickView(card);
+
+    });
+
+  }
+
+});
+
+
+/* QUICK ADD */
+quickAdd.addEventListener("click",()=>{
+
+  if(!selectedProduct)return;
+
+  addToCart(selectedProduct);
+
+  closeQuickView();
+
+});
+
+
+/* WHATSAPP */
+quickWhatsApp.addEventListener("click",()=>{
+
+  if(!selectedProduct)return;
+
+  const title=
+    selectedProduct.querySelector("h3")
+    ?.textContent.trim();
+
+  const message=
+    "Hello Kishor Nayak, I want to order: "
+    + title;
+
+  const number="91XXXXXXXXXX";
+
+  window.open(
+    "https://wa.me/"+number+
+    "?text="+encodeURIComponent(message),
+    "_blank"
+  );
+
+});
+
+
+/* ================= CATEGORY FILTER ================= */
+
+const categoryCards=
+document.querySelectorAll(".category-card");
+
+
+categoryCards.forEach(category=>{
+
+  category.addEventListener("click",()=>{
+
+    const selected=
+      category.dataset.category;
+
+    categoryCards.forEach(c=>{
+      c.classList.remove("active");
+    });
+
+    category.classList.add("active");
+
+
+    const products=
+      document.querySelectorAll(".product-card");
+
+
+    products.forEach(card=>{
+
+      const categories=
+        card.dataset.category || "";
+
+      const visible=
+        selected==="all"
+        || categories.includes(selected);
+
+      card.style.display=
+        visible ? "" : "none";
+
+    });
+
+
+    document.getElementById("shop")
+      ?.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  });
+
+});
+</script>
